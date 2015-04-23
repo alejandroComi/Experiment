@@ -11,7 +11,8 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="js/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!--script src="js/jquery.min.js"></script-->
 		<script src="js/jquery.scrolly.min.js"></script>
 		<script src="js/jquery.dropotron.min.js"></script>
 		<script src="js/jquery.scrollex.min.js"></script>
@@ -151,12 +152,13 @@
 						<h2>Replicate Social Ventures Weekend (SVW)</h2>
 						<p>We are looking for people in other countries and states that<br> want to make a difference in their community.</p>
 					</header>
-					<form method="post" action="#" class="container 50%">
+					<form action="#" class="container 50%">
 						<div class="row uniform 50%">
 
 							<div class="8u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
 
-							<div class="4u$ 12u$(xsmall)"><input type="submit" value="Get Started" class="fit special" /></div>
+							<div class="4u$ 12u$(xsmall)"><input id="send_email" type="submit" value="Get Started" class="fit special" /></div>
+							<span id="message"></span>
 						</div>
 					</form>
 				</div>
@@ -175,4 +177,25 @@
 			</footer>
 
 	</body>
+	<script>
+
+		$(document).ready(function(){
+			
+		    var from,to,subject,text;
+		    $("#send_email").click(function(){  
+		    	console.log('Entre a la funcion para enviar correo');    
+		        to="mcomi@hotmail.com"
+		        subject="Pruebas envio email";
+		        text=$("#email").val();
+		        $("#message").text("Sending E-mail...Please wait");
+		        $.get("http://localhost:3000/send",{to:to,subject:subject,text:text},function(data){
+		        if(data=="sent")
+		        {
+		            $("#message").empty().html("Email is been sent at "+to+" . Please check inbox !");
+		        }
+
+		});
+		    });
+		});
+	</script>
 </html>
